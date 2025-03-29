@@ -1,6 +1,6 @@
 import os
 import json
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from pathlib import Path
 from pydantic import BaseModel
 
@@ -10,22 +10,53 @@ from grawl.utils.file_utils import filter_repository_files, get_important_files
 
 console = Console()
 
+
 class FileContent(BaseModel):
+    """Model representing file content information.
+
+    Attributes:
+        path: Path to the file
+        content: Content of the file
+        size: Size of the file in bytes
+    """
     path: str
     content: str
     size: int
 
+
 class RepoStructure(BaseModel):
+    """Model representing repository structure.
+
+    Attributes:
+        files: List of file paths in the repository
+        directories: List of directory paths in the repository
+    """
     files: List[str]
     directories: List[str]
 
+
 class DocGenerator(Agent):
-    """Agent that generates documentation for a GitHub repository."""
+    """Agent that generates documentation for a GitHub repository.
+    
+    This agent analyzes repository structure and content to generate
+    comprehensive documentation optimized for LLMs.
+    """
     pass
+
 
 @function_tool
 def list_directory(path: str) -> Dict[str, List[str]]:
-    """List all files and directories in the given path."""
+    """List all files and directories in the given path.
+    
+    Args:
+        path: Path to the directory to list
+        
+    Returns:
+        Dictionary containing lists of files and directories
+        
+    Raises:
+        Exception: If there's an error listing the directory
+    """
     try:
         p = Path(path)
         files = []
@@ -45,9 +76,21 @@ def list_directory(path: str) -> Dict[str, List[str]]:
         console.print(f"[bold red]Error listing directory:[/bold red] {str(e)}")
         raise
 
+
 @function_tool
 def read_file(path: str, max_size_kb: int) -> Dict[str, Any]:
-    """Read the content of a file if its size is less than max_size_kb."""
+    """Read the content of a file if its size is less than max_size_kb.
+    
+    Args:
+        path: Path to the file to read
+        max_size_kb: Maximum file size in KB to read
+        
+    Returns:
+        Dictionary containing file path, content, and size
+        
+    Raises:
+        Exception: If there's an error reading the file
+    """
     try:
         p = Path(path)
         size = p.stat().st_size
@@ -82,9 +125,20 @@ def read_file(path: str, max_size_kb: int) -> Dict[str, Any]:
         console.print(f"[bold red]Error reading file:[/bold red] {str(e)}")
         raise
 
+
 @function_tool
 def get_repo_summary(repo_path: str) -> Dict[str, Any]:
-    """Get a summary of the repository structure and key files."""
+    """Get a summary of the repository structure and key files.
+    
+    Args:
+        repo_path: Path to the repository
+        
+    Returns:
+        Dictionary containing repository summary information
+        
+    Raises:
+        Exception: If there's an error getting the repository summary
+    """
     try:
         repo = Path(repo_path)
         
@@ -123,9 +177,21 @@ def get_repo_summary(repo_path: str) -> Dict[str, Any]:
         console.print(f"[bold red]Error getting repo summary:[/bold red] {str(e)}")
         raise
 
+
 @function_tool
 def filter_repo_files(repo_path: str, max_size_kb: int) -> Dict[str, Any]:
-    """Filter repository files to include only relevant text files under a certain size."""
+    """Filter repository files to include only relevant text files under a certain size.
+    
+    Args:
+        repo_path: Path to the repository
+        max_size_kb: Maximum file size in KB to include
+        
+    Returns:
+        Dictionary containing included and excluded files information
+        
+    Raises:
+        Exception: If there's an error filtering repository files
+    """
     try:
         included_files, excluded_files = filter_repository_files(repo_path, max_size_kb)
         return {
@@ -138,17 +204,40 @@ def filter_repo_files(repo_path: str, max_size_kb: int) -> Dict[str, Any]:
         console.print(f"[bold red]Error filtering repository files:[/bold red] {str(e)}")
         raise
 
+
 @function_tool
 def get_key_files(repo_path: str) -> Dict[str, List[str]]:
-    """Identify important files in the repository by category."""
+    """Identify important files in the repository by category.
+    
+    Args:
+        repo_path: Path to the repository
+        
+    Returns:
+        Dictionary mapping categories to lists of file paths
+        
+    Raises:
+        Exception: If there's an error getting key files
+    """
     try:
         return get_important_files(repo_path)
     except Exception as e:
         console.print(f"[bold red]Error getting key files:[/bold red] {str(e)}")
         raise
 
+
 def generate_documentation(repo_path: str, output_path: str) -> str:
-    """Generate documentation for a repository using an OpenAI agent."""
+    """Generate documentation for a repository using an OpenAI agent.
+    
+    Args:
+        repo_path: Path to the repository
+        output_path: Path where the documentation will be saved
+        
+    Returns:
+        Path to the generated documentation
+        
+    Raises:
+        Exception: If there's an error generating documentation
+    """
     try:
         # Create agent
         console.print("[bold blue]Creating agent with gpt-4o-mini model...[/bold blue]")

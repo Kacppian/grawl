@@ -3,27 +3,31 @@ import fnmatch
 from pathlib import Path
 from typing import List, Dict, Set, Tuple
 
+# File Utilities
+# ==============
+
 def get_file_extension(file_path: str) -> str:
     """
-    Get the extension of a file.
-    
+    Retrieves the file extension from a given file path.
+
     Args:
-        file_path: Path to the file
-        
+        file_path (str): The path to the file.
+
     Returns:
-        File extension (lowercase)
+        str: The file extension in lowercase.
     """
     return os.path.splitext(file_path)[1].lower()
 
+
 def is_binary_file(file_path: str) -> bool:
     """
-    Check if a file is likely binary based on its extension.
-    
+    Checks if a file is likely binary based on its extension.
+
     Args:
-        file_path: Path to the file
-        
+        file_path (str): The path to the file.
+
     Returns:
-        True if the file is likely binary, False otherwise
+        bool: True if the file is likely binary, False otherwise.
     """
     binary_extensions = {
         '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.ico', '.webp',  # Images
@@ -37,16 +41,20 @@ def is_binary_file(file_path: str) -> bool:
     
     return get_file_extension(file_path) in binary_extensions
 
+
+# Repository File Filtering
+# ========================
+
 def filter_repository_files(repo_path: str, max_size_kb: int = 1000) -> Tuple[List[str], List[str]]:
     """
-    Filter repository files to include only relevant text files under a certain size.
-    
+    Filters repository files to include only relevant text files under a certain size.
+
     Args:
-        repo_path: Path to the repository
-        max_size_kb: Maximum file size in KB
-        
+        repo_path (str): The path to the repository.
+        max_size_kb (int, optional): The maximum file size in KB. Defaults to 1000.
+
     Returns:
-        Tuple of (included_files, excluded_files)
+        Tuple[List[str], List[str]]: A tuple containing the included files and excluded files.
     """
     included_files = []
     excluded_files = []
@@ -95,15 +103,19 @@ def filter_repository_files(repo_path: str, max_size_kb: int = 1000) -> Tuple[Li
     
     return included_files, excluded_files
 
+
+# Important File Identification
+# ===========================
+
 def get_important_files(repo_path: str) -> Dict[str, List[str]]:
     """
-    Identify important files in the repository by category.
-    
+    Identifies important files in the repository by category.
+
     Args:
-        repo_path: Path to the repository
-        
+        repo_path (str): The path to the repository.
+
     Returns:
-        Dictionary mapping categories to lists of file paths
+        Dict[str, List[str]]: A dictionary mapping categories to lists of file paths.
     """
     important_files = {
         'documentation': [],

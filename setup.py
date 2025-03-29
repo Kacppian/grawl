@@ -15,8 +15,12 @@ setup(
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Documentation",
     ],
     python_requires=">=3.10",
     install_requires=[
@@ -27,9 +31,24 @@ setup(
         "rich>=13.6.0",
         "pydantic>=2.5.0",
     ],
+    extras_require={
+        "dev": [
+            "pytest>=7.0.0",
+            "pytest-cov>=4.0.0",
+            "black>=23.0.0",
+            "isort>=5.12.0",
+            "flake8>=6.0.0",
+            "mypy>=1.0.0",
+        ],
+    },
     entry_points={
         "console_scripts": [
             "grawl=grawl.__main__:app",
         ],
+    },
+    project_urls={
+        "Bug Tracker": "https://github.com/yourusername/grawl/issues",
+        "Documentation": "https://github.com/yourusername/grawl#readme",
+        "Source Code": "https://github.com/yourusername/grawl",
     },
 )

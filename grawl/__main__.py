@@ -11,19 +11,37 @@ from grawl.agents.doc_generator import generate_documentation
 app = typer.Typer(help="Grawl: Generate repository documentation for LLMs")
 console = Console()
 
+
 @app.callback()
-def callback():
-    """Grawl: Generate repository documentation for LLMs"""
+def callback() -> None:
+    """Grawl: Generate repository documentation for LLMs.
+    
+    This callback function runs before any command and checks if the
+    OPENAI_API_KEY environment variable is set.
+    """
     # Check if OPENAI_API_KEY is set
     if not os.environ.get("OPENAI_API_KEY"):
         console.print("[bold red]Error:[/bold red] OPENAI_API_KEY environment variable is not set.")
         console.print("Please set it using: export OPENAI_API_KEY='your-api-key'")
         sys.exit(1)
 
+
 @app.command()
-def generate(repo_url: str = typer.Argument(..., help="GitHub repository URL"),
-            output_path: Optional[str] = typer.Option(None, "--output", "-o", help="Custom output path for documentation")):
-    """Generate documentation for a GitHub repository"""
+def generate(
+    repo_url: str = typer.Argument(..., help="GitHub repository URL"),
+    output_path: Optional[str] = typer.Option(
+        None, "--output", "-o", help="Custom output path for documentation"
+    ),
+) -> None:
+    """Generate documentation for a GitHub repository.
+    
+    This command clones a GitHub repository and generates comprehensive
+    documentation optimized for LLMs using OpenAI's agents framework.
+    
+    Args:
+        repo_url: URL of the GitHub repository to document
+        output_path: Optional custom path where the documentation will be saved
+    """
     console.print(f"[bold green]Grawl:[/bold green] Processing repository {repo_url}")
     
     # Extract repo name from URL
@@ -50,6 +68,7 @@ def generate(repo_url: str = typer.Argument(..., help="GitHub repository URL"),
         progress.update(task, advance=1)
     
     console.print(f"[bold green]Documentation generated at:[/bold green] {output_path}")
+
 
 if __name__ == "__main__":
     app()

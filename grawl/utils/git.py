@@ -2,12 +2,18 @@ import os
 import shutil
 from git import Repo
 from rich.console import Console
+from typing import Optional
 
 console = Console()
+
 
 def clone_repository(repo_url: str, repo_path: str) -> str:
     """
     Clone a GitHub repository to the specified path.
+    
+    This function clones a Git repository from the provided URL to the specified
+    local path. If the repository already exists at the destination, it will be
+    removed and re-cloned.
     
     Args:
         repo_url: URL of the GitHub repository
@@ -15,6 +21,9 @@ def clone_repository(repo_url: str, repo_path: str) -> str:
         
     Returns:
         Path to the cloned repository
+        
+    Raises:
+        Exception: If there's an error during the cloning process
     """
     try:
         # Check if repository directory already exists
