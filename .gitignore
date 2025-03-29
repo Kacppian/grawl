@@ -1,0 +1,4 @@
+.grawl/
+
+*.pyc
+__pycache__
