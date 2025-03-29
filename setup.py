@@ -6,12 +6,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="grawl",
     version="0.1.0",
-    author="Grawl Team",
-    author_email="example@example.com",
+    author="Kacppian",
+    author_email="aspkaushik@gmail.com",
     description="Generate repository documentation for LLMs",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/grawl",
+    url="https://github.com/kacppian/grawl",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -47,8 +47,8 @@ setup(
         ],
     },
     project_urls={
-        "Bug Tracker": "https://github.com/yourusername/grawl/issues",
-        "Documentation": "https://github.com/yourusername/grawl#readme",
-        "Source Code": "https://github.com/yourusername/grawl",
+        "Bug Tracker": "https://github.com/kacppian/grawl/issues",
+        "Documentation": "https://github.com/kacppian/grawl#readme",
+        "Source Code": "https://github.com/kacppian/grawl",
     },
 )

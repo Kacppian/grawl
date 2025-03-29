@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
-    {name = "Grawl Team", email = "example@example.com"}
+    {name = "Kacppian", email = "kacppian@example.com"}
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -42,8 +42,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/grawl"
-Issues = "https://github.com/yourusername/grawl/issues"
+Homepage = "https://github.com/kacppian/grawl"
+Issues = "https://github.com/kacppian/grawl/issues"
 
 [project.scripts]
 grawl = "grawl.__main__:app"

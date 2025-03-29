@@ -25,7 +25,7 @@ pip install grawl
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/grawl.git
+git clone https://github.com/kacppian/grawl.git
 cd grawl
 
 # Create a virtual environment
@@ -88,7 +88,7 @@ The documentation includes:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/grawl.git
+git clone https://github.com/kacppian/grawl.git
 cd grawl
 
 # Create a virtual environment
